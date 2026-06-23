@@ -1,59 +1,35 @@
-const Header = (props) => {
+import { useState } from 'react'
+
+const Button = ({ onClick, text }) => {
   return (
-    <h1>{props.course.name}</h1>
+    <button onClick={onClick}>
+      {text}
+    </button>
   )
 }
 
-const Part = (props) => {
-  console.log('Part props:', props)
+const Stats = (props) => {
   return (
-    <p>{props.part} {props.exercises}</p>
+    <p>{props.text} {props.value}</p>
   )
 }
-
-const Content = (props) => {
-  console.log('Content props:', props)
-  return (
-      <div>
-        <Part part={props.parts[0].name} exercises={props.parts[0].exercises} />
-        <Part part={props.parts[1].name} exercises={props.parts[1].exercises} />
-        <Part part={props.parts[2].name} exercises={props.parts[2].exercises} />
-      </div>
-  )
-}
-
-const Total = (props) => {
-  console.log('Total props:', props)
-  return (
-    <p>Number of exercises {props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises}</p>
-  )
-}
-
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
   return (
     <div>
-      <Header course={course} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      <h1>give feedback</h1>
+      <Button onClick={() => setGood(good + 1)} text="good" />
+      <Button onClick={() => setNeutral(neutral + 1)} text="neutral" />
+      <Button onClick={() => setBad(bad + 1)} text="bad" />
+      <h1>statistics</h1>
+      <Stats text="good" value={good} />
+      <Stats text="neutral" value={neutral} />
+      <Stats text="bad" value={bad} />
     </div>
   )
 }
