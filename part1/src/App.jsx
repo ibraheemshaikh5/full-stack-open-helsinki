@@ -8,10 +8,29 @@ const Button = ({ onClick, text }) => {
   )
 }
 
-const Stats = (props) => {
+const DataField = (props) => {
   return (
     <div>{props.text} {props.value}</div>
   )
+}
+
+const Statistics = ({good, neutral, bad}) => {
+  if (good + neutral + bad != 0) {
+    return (
+      <div>
+          <DataField text="good" value={good} />
+          <DataField text="neutral" value={neutral} />
+          <DataField text="bad" value={bad} />
+          <DataField text="all" value={good + neutral + bad} />
+          <DataField text="average" value={(good - bad) / (good + neutral + bad)} />
+          <DataField text="positive" value={good / (good + neutral + bad) * 100 + '%'} />
+      </div>
+    )
+  } else {
+    return (
+      <p>No feedback given</p>
+    )
+  }
 }
 
 const App = () => {
@@ -27,12 +46,7 @@ const App = () => {
       <Button onClick={() => setNeutral(neutral + 1)} text="neutral" />
       <Button onClick={() => setBad(bad + 1)} text="bad" />
       <h1>statistics</h1>
-      <Stats text="good" value={good} />
-      <Stats text="neutral" value={neutral} />
-      <Stats text="bad" value={bad} />
-      <Stats text="all" value={good + neutral + bad} />
-      <Stats text="average" value={(good - bad) / (good + neutral + bad)} />
-      <Stats text="positive" value={good / (good + neutral + bad) * 100 + '%'} />
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
