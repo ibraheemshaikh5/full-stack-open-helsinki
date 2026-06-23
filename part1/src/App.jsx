@@ -10,7 +10,7 @@ const Button = ({ onClick, text }) => {
 
 const Stats = (props) => {
   return (
-    <p>{props.text} {props.value}</p>
+    <div>{props.text} {props.value}</div>
   )
 }
 
@@ -30,6 +30,9 @@ const App = () => {
       <Stats text="good" value={good} />
       <Stats text="neutral" value={neutral} />
       <Stats text="bad" value={bad} />
+      <Stats text="all" value={good + neutral + bad} />
+      <Stats text="average" value={(good - bad) / (good + neutral + bad)} />
+      <Stats text="positive" value={good / (good + neutral + bad) * 100 + '%'} />
     </div>
   )
 }
